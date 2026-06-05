@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>Home</title>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+		crossorigin="anonymous">
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Image</th>
+							<th scope="col">Product Name</th>
+							<th scope="col">Unit Price</th>
+							<th scope="col">Quantity</th>
+							<th scope="col">Line Total</th>
+						</tr>
+					</thead>
+					<tbody id="tableBody">
+					</tbody>
+				</table>
+				<div class="container">
+					<span id="cartCountBadge"></span>
+					<br/>
+					<span id="cartSubtotalBadge"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		const formatterUSD = new Intl.NumberFormat('en-US', {style: 'currency', currency:'USD'});
+		const cartCountBadge = document.getElementById("cartCountBadge");
+		const cartSubtotalBadge = document.getElementById("cartSubtotalBadge");
+		const tableBody = document.getElementById("tableBody");
+		
+		(async function(){
+			const res = await fetch('/api/cart/items');
+			if(!res.ok) return;
+			var cart = await res.json();
+			populateTable(cart);
+			totalItems = cart.items.reduce((accumulator, item) => { return accumulator + item.quantity }, 0);
+			cartCountBadge.textContent = `Cart Items: ${totalItems}`;
+			cartSubtotalBadge.textContent = `Cart Subtotal: ${formatterUSD.format(cart.subtotal)}`;
+			
+		})();
+		
+		const populateTable = (cart)=> {
+			 cart.items.forEach((item)=> {
+				 let newRow = tableBody.insertRow();
+				 let imageCell = newRow.insertCell();
+				 let productNameCell = newRow.insertCell();
+				 let unitPriceCell = newRow.insertCell();
+				 let quantityCell = newRow.insertCell();
+				 let lineTotalCell = newRow.insertCell();
+				 
+				 imageCell.textContent = item.productId;
+				 productNameCell.textContent = item.name;
+				 unitPriceCell.textContent = formatterUSD.format(item.unitPrice);
+				 quantityCell.textContent = item.quantity;
+				 lineTotalCell.textContent = formatterUSD.format(item.lineTotal);
+				 tableBody.insertRow(newRow);
+			 })
+		}
+		
+		
+		
+	</script>
+</body>
+</html>
+
