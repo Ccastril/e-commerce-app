@@ -8,9 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import io.github.ccastril.ecommerce.dto.ProductResponse;
 import io.github.ccastril.ecommerce.security.AccountDetails;
 import io.github.ccastril.ecommerce.service.ProductService;
-import io.github.ccastril.ecommerce.template.ProductTemplate;
 
 
 @Controller
@@ -32,7 +32,7 @@ public class HomeController {
 		}
 //
 		try {
-			List<ProductTemplate> products = productService.getAllProducts();
+			List<ProductResponse> products = productService.getAllProducts();
 
 			model.addAttribute("products", products);
 			//if there are no active carts then create a new one

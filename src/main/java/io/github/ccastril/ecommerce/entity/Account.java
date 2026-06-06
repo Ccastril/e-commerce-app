@@ -3,7 +3,7 @@ package io.github.ccastril.ecommerce.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import io.github.ccastril.ecommerce.template.AccountTemplate;
+import io.github.ccastril.ecommerce.dto.AccountRegistrationResponse;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,7 +42,7 @@ public class Account {
 	public Account() {
 
 	}
-	public Account(AccountTemplate account) {
+	public Account(AccountRegistrationResponse account) {
 		this.name = account.name();
 		this.password = account.password();
 		this.confirmPassword = account.confirmPassword();

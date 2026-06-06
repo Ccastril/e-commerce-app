@@ -1,4 +1,4 @@
-package io.github.ccastril.ecommerce.template;
+package io.github.ccastril.ecommerce.dto;
 
 public record AddItemRequest(
 		Long productId,

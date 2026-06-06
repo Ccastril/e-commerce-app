@@ -1,4 +1,4 @@
-package io.github.ccastril.ecommerce.template;
+package io.github.ccastril.ecommerce.dto;
 
 
 import java.math.BigDecimal;
@@ -8,7 +8,7 @@ import io.github.ccastril.ecommerce.entity.Account;
 import io.github.ccastril.ecommerce.entity.CartItem;
 import io.github.ccastril.ecommerce.entity.CartStatus;
 
-public record CartTemplate(
+public record CartResponse(
 		Long id,
 		Set<CartItem> items,
 		int quantity,

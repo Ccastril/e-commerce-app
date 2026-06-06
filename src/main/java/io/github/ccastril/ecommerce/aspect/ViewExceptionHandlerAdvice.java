@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 import io.github.ccastril.ecommerce.exception.RegistrationException;
+import io.github.ccastril.ecommerce.dto.AccountRegistrationResponse;
 import io.github.ccastril.ecommerce.exception.ErrorInfo;
-import io.github.ccastril.ecommerce.template.AccountTemplate;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 
@@ -48,7 +48,7 @@ public class ViewExceptionHandlerAdvice {
 		LOGGER.error("THIS IS THE ERROR MESSAGE AS FORMATTED " + errorMessage);
 		LOGGER.error("THIS IS THE PROPERRTY " + environment.getProperty(errorMessage));
 		ErrorInfo errorInfo = new ErrorInfo(environment.getProperty(errorMessage), exception.getClass().toString(), HttpStatus.BAD_REQUEST.value());
-		modelAndView.addObject("accTemp", new AccountTemplate("","","",""));
+		modelAndView.addObject("accTemp", new AccountRegistrationResponse("","","",""));
 		modelAndView.addObject("errorInfo", errorInfo);
 		return modelAndView;
 
@@ -61,7 +61,7 @@ public class ViewExceptionHandlerAdvice {
 		String errorMessage = exception.getMessage();
 		LOGGER.info("THIS IS THE MESSAGE FROM ENV :" + environment.getProperty(errorMessage));
 		ErrorInfo errorInfo = new ErrorInfo(environment.getProperty(errorMessage), exception.getClass().toString(), HttpStatus.BAD_REQUEST.value());
-		modelAndView.addObject("accTemp", new AccountTemplate("","","",""));
+		modelAndView.addObject("accTemp", new AccountRegistrationResponse("","","",""));
 		modelAndView.addObject("errorInfo", errorInfo);
 		return modelAndView;
 

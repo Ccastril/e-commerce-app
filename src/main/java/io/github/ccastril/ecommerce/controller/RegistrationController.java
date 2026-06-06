@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.servlet.ModelAndView;
 
+import io.github.ccastril.ecommerce.dto.AccountRegistrationResponse;
 import io.github.ccastril.ecommerce.exception.RegistrationException;
 import io.github.ccastril.ecommerce.service.RegistrationService;
-import io.github.ccastril.ecommerce.template.AccountTemplate;
 import jakarta.validation.Valid;
 
 //import org.springframework.web.bind.annotation.GetMapping
@@ -30,11 +30,11 @@ public class RegistrationController {
 //	}
 	@GetMapping("/register")
 	public String getRegister(Model model) {
-		model.addAttribute("accTemp", new AccountTemplate("","","",""));
+		model.addAttribute("accTemp", new AccountRegistrationResponse("","","",""));
 		return "register";
 	}
 	@PostMapping("/register")
-	public String registerUser(@Valid @ModelAttribute AccountTemplate accTemp, Model model) throws RegistrationException {
+	public String registerUser(@Valid @ModelAttribute AccountRegistrationResponse accTemp, Model model) throws RegistrationException {
 
 			registrationService.registerAccount(accTemp);
 			model.addAttribute("submittedUser", accTemp);

@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.github.ccastril.ecommerce.dto.ProductResponse;
 import io.github.ccastril.ecommerce.service.ProductService;
-import io.github.ccastril.ecommerce.template.ProductTemplate;
 
 @RestController
 @RequestMapping("/api/products")
@@ -20,9 +20,9 @@ public class ProductApi {
 	public ModelMapper modelMapper;
 
 	@GetMapping("/{id}")
-	public ProductTemplate getProductById(@PathVariable("id") Long id) throws Exception {
+	public ProductResponse getProductById(@PathVariable("id") Long id) throws Exception {
 		try {
-			ProductTemplate p = modelMapper.map(productService.getProductById(id), ProductTemplate.class);
+			ProductResponse p = modelMapper.map(productService.getProductById(id), ProductResponse.class);
 			return p;
 		} catch (Exception e) {
 			System.out.println("Exception caught");

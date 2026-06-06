@@ -7,14 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import io.github.ccastril.ecommerce.dto.AddItemRequest;
+import io.github.ccastril.ecommerce.dto.CartSummaryResponse;
 import io.github.ccastril.ecommerce.entity.Account;
 import io.github.ccastril.ecommerce.entity.Cart;
 import io.github.ccastril.ecommerce.entity.CartStatus;
 import io.github.ccastril.ecommerce.entity.Product;
 import io.github.ccastril.ecommerce.repository.CartRepository;
-import io.github.ccastril.ecommerce.template.AddItemRequest;
-import io.github.ccastril.ecommerce.template.CartSummary;
-import io.github.ccastril.ecommerce.template.CartView;
+import io.github.ccastril.ecommerce.viewmodel.CartViewModel;
 import jakarta.annotation.Nullable;
 import jakarta.transaction.Transactional;
 @Service
@@ -26,12 +26,12 @@ public class CartService {
 	@Autowired
 	private ProductService productService;
 
-	public CartSummary addItem(@Nullable Account userAccount, @Nullable String anonKey, AddItemRequest req) throws Exception {
+	public CartSummaryResponse addItem(@Nullable Account userAccount, @Nullable String anonKey, AddItemRequest req) throws Exception {
 		Cart cart = getActiveCart(userAccount, anonKey);
 
 		Product prod = productService.getProductById(req.productId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
 		cart.addOrIncrement(prod, req.quantity(), prod.getPrice());
-		return CartSummary.from(cart);
+		return CartSummaryResponse.from(cart);
 	}
 	public Cart getActiveCart(@Nullable Account userAccount,@Nullable String anonKey) {
 		if(userAccount != null) {
@@ -50,11 +50,11 @@ public class CartService {
 		}
 
 	}
-	public CartView getActiveCartView(@Nullable Account userAccount, @Nullable String anonKey) {
+	public CartViewModel getActiveCartView(@Nullable Account userAccount, @Nullable String anonKey) {
 		Cart c = getActiveCart(userAccount, anonKey);
-		CartView cartView = CartView.from(c);
-		System.out.println(cartView);
-		return cartView;
+		CartViewModel cartViewModel = CartViewModel.from(c);
+		System.out.println(cartViewModel);
+		return cartViewModel;
 
 	}
 	public CartService() {
