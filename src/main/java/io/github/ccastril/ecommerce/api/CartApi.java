@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.ccastril.ecommerce.dto.AddItemRequest;
+import io.github.ccastril.ecommerce.dto.CartResponse;
 import io.github.ccastril.ecommerce.dto.CartSummaryResponse;
 import io.github.ccastril.ecommerce.entity.Account;
 import io.github.ccastril.ecommerce.service.CartService;
-import io.github.ccastril.ecommerce.viewmodel.CartViewModel;
+
 
 @RestController
 @RequestMapping("/api/cart")
@@ -44,11 +45,18 @@ public class CartApi {
 		}
 		return ResponseEntity.ok(summary);
 	}
+//	@GetMapping("/items")
+//	public ResponseEntity<CartViewModel> getActiveCart(@AuthenticationPrincipal(expression="account") Account account, @CookieValue(value="cart", required=false) String anonKey) {
+//		CartViewModel  cartViewModel = cartService.getActiveCartView(account, anonKey);
+//
+//		return ResponseEntity.ok(cartViewModel);
+//
+//	}
 	@GetMapping("/items")
-	public ResponseEntity<CartViewModel> getActiveCart(@AuthenticationPrincipal(expression="account") Account account, @CookieValue(value="cart", required=false) String anonKey) {
-		CartViewModel  cartViewModel = cartService.getActiveCartView(account, anonKey);
+	public ResponseEntity<CartResponse> getActiveCart(@AuthenticationPrincipal(expression="account") Account account, @CookieValue(value="cart", required=false) String anonKey) {
+		CartResponse cartResponse = CartResponse.from(cartService.getActiveCart(account, anonKey));
 
-		return ResponseEntity.ok(cartViewModel);
+		return ResponseEntity.ok(cartResponse);
 
 	}
 
