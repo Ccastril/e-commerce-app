@@ -14,7 +14,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>e-commerce-app</name>
-	<description>Demo project for Spring Boot JWT auth gateway</description>
+	<description>N-tier e-commerce web application built with Spring Boot, Thymeleaf, Spring Security, Spring Data JPA, H2/MySQL, DTO records, and MVC/REST controllers.</description>
 	<url />
 	<licenses>
 		<license />
