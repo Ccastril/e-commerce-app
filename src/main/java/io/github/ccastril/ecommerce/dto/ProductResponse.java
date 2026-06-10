@@ -1,8 +1,8 @@
-package io.github.ccastril.ecommerce.template;
+package io.github.ccastril.ecommerce.dto;
 
 import java.math.BigDecimal;
 
-public record ProductTemplate(
+public record ProductResponse(
 		Long id,
 		String productName,
 		String productImage,
@@ -12,7 +12,7 @@ public record ProductTemplate(
 		BigDecimal price, 
 		Double discount) {
 	
-	public ProductTemplate(Long id, String productName, String productImage, String description, int averageRating, String sellerName, BigDecimal price, Double discount) {
+	public ProductResponse(Long id, String productName, String productImage, String description, int averageRating, String sellerName, BigDecimal price, Double discount) {
 		this.id = id;
 		this.productName = productName;
 		this.productImage = productImage;

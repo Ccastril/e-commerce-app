@@ -15,6 +15,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import io.github.ccastril.ecommerce.dto.AccountRegistrationResponse;
 import io.github.ccastril.ecommerce.entity.Account;
 import io.github.ccastril.ecommerce.entity.Cart;
 import io.github.ccastril.ecommerce.entity.CartItem;
@@ -26,7 +27,6 @@ import io.github.ccastril.ecommerce.repository.CartItemRepository;
 import io.github.ccastril.ecommerce.repository.CartRepository;
 import io.github.ccastril.ecommerce.service.ProductService;
 import io.github.ccastril.ecommerce.service.RegistrationService;
-import io.github.ccastril.ecommerce.template.AccountTemplate;
 
 @SpringBootApplication
 public class ECommerceAppApplication implements CommandLineRunner {
@@ -54,10 +54,10 @@ public void run(String... args) throws Exception {
 		
 		Set<String> names = nameGenerator(100);;
 		Map<String, String> namesAndEmails = (HashMap<String, String>) emailGenerator(names);
-		Set<AccountTemplate> newAccountTemplates = new HashSet<>();
+		Set<AccountRegistrationResponse> newAccountTemplates = new HashSet<>();
 		//create new accounts
 		for(Map.Entry<String, String> e : namesAndEmails.entrySet()) {
-			newAccountTemplates.add(new AccountTemplate(0L, e.getKey(), "Password123", "Password123", e.getValue(), new HashSet<>(), new HashSet<>(), new HashSet<>()));
+			newAccountTemplates.add(new AccountRegistrationResponse(0L, e.getKey(), "Password123", "Password123", e.getValue(), new HashSet<>(), new HashSet<>(), new HashSet<>()));
 		}
 		
 		Set<Account> newAccounts = new HashSet<>();

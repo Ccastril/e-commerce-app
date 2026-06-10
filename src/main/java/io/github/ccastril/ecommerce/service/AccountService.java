@@ -5,9 +5,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.github.ccastril.ecommerce.dto.AccountRegistrationResponse;
 import io.github.ccastril.ecommerce.entity.Account;
 import io.github.ccastril.ecommerce.repository.AccountRepository;
-import io.github.ccastril.ecommerce.template.AccountTemplate;
 
 @Service
 public class AccountService {
@@ -16,9 +16,9 @@ public class AccountService {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	public AccountTemplate getAccountIdByUsername(String username) throws Exception {
+	public AccountRegistrationResponse getAccountIdByUsername(String username) throws Exception {
 		Account acc = accountRepo.findByName(username).orElseThrow(()-> new Exception("Account Not Found"));
-		AccountTemplate accTemplate = modelMapper.map(acc, AccountTemplate.class);
+		AccountRegistrationResponse accTemplate = modelMapper.map(acc, AccountRegistrationResponse.class);
 		return accTemplate;
 
 	}

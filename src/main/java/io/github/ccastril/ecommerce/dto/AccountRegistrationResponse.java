@@ -1,4 +1,4 @@
-package io.github.ccastril.ecommerce.template;
+package io.github.ccastril.ecommerce.dto;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 @SameProperties(property1 = "password", property2 = "confirmPassword", message="registration.user.password.match")
-public record AccountTemplate(
+public record AccountRegistrationResponse(
 		Long id,
 		@NotBlank(message="registration.user.name.blank")
 		@Pattern(regexp = "^[a-zA-Z]+$", message="registration.user.name.invalid")
@@ -29,7 +29,7 @@ public record AccountTemplate(
 		Set<WishList> wishList,
 		Set<Order> orders
 		){
-	public AccountTemplate(String name, String password, String confirmPassword, String email) {
+	public AccountRegistrationResponse(String name, String password, String confirmPassword, String email) {
 		this(-1L,name, password, confirmPassword, email, new HashSet<Cart>(), new HashSet<WishList>(), new HashSet<Order>());
 
 	}

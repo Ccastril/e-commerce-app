@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import io.github.ccastril.ecommerce.dto.ProductResponse;
 import io.github.ccastril.ecommerce.entity.Product;
 import io.github.ccastril.ecommerce.repository.ProductRepository;
-import io.github.ccastril.ecommerce.template.ProductTemplate;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -53,9 +53,9 @@ public class ProductService {
 		productRepo.saveAll(products);
 	}
 
-	public List<ProductTemplate> getAllProducts() throws Exception {
+	public List<ProductResponse> getAllProducts() throws Exception {
 		List<Product> prods = productRepo.findAll();
-		List<ProductTemplate> products = prods.stream().map(p -> modelMapper.map(p, ProductTemplate.class)).collect(Collectors.toList());
+		List<ProductResponse> products = prods.stream().map(p -> modelMapper.map(p, ProductResponse.class)).collect(Collectors.toList());
 		if(products.isEmpty()) {
 			throw new Exception(environment.getProperty("Service.NO_PRODUCTS_FOUND"));
 		}

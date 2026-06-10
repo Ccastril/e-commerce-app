@@ -1,22 +1,23 @@
-package io.github.ccastril.ecommerce.template;
+package io.github.ccastril.ecommerce.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+import io.github.ccastril.ecommerce.dto.CartSummaryResponse;
 import io.github.ccastril.ecommerce.entity.Cart;
 import io.github.ccastril.ecommerce.entity.CartItem;
-import io.github.ccastril.ecommerce.template.CartSummary;
+import io.github.ccastril.ecommerce.viewmodel.CartItemViewModel;
 
-public record CartSummary(
+public record CartSummaryResponse(
 		Long cartId,
 		int itemCount,
 		BigDecimal subtotal,
-		List<CartItemView> items,
+		List<CartItemViewModel> items,
 		String anonKey) {
 
-	public static CartSummary from(Cart cart) {
+	public static CartSummaryResponse from(Cart cart) {
 		var items = cart.getItems().stream()
-				.map(item -> new CartItemView(
+				.map(item -> new CartItemViewModel(
 						item.getProduct().getId(),
 						item.getProduct().getProductName(),
 						item.getQuantity(),
@@ -27,9 +28,9 @@ public record CartSummary(
 
 		int count = cart.getItems().stream().mapToInt(CartItem::getQuantity).sum();
 		BigDecimal subtotal = items.stream()
-				.map(CartItemView::lineTotal)
+				.map(CartItemViewModel::lineTotal)
 				.reduce(BigDecimal.ZERO, BigDecimal::add);
-		return new CartSummary(cart.getId(), count, subtotal, items, cart.getAnonKey());
+		return new CartSummaryResponse(cart.getId(), count, subtotal, items, cart.getAnonKey());
 	}
 
 }

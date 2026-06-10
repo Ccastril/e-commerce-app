@@ -1,9 +1,9 @@
-package io.github.ccastril.ecommerce.template;
+package io.github.ccastril.ecommerce.viewmodel;
 
 
 import java.math.BigDecimal;
 
-public record CartItemView(
+public record CartItemViewModel(
 		Long productId, 
 		String name, 
 		int quantity, 
